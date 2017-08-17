@@ -84,6 +84,7 @@ export default Ember.Component.extend({
     this.router = getOwner(this).lookup('router:main');
 
     addListener(this.router, 'willTransition', this, this._queueMoveFollower);
+    addListener(this.router, 'didTransition', this, this._queueMoveFollower);
   },
 
   didInsertElement() {
@@ -100,6 +101,7 @@ export default Ember.Component.extend({
     this._super(...arguments);
 
     removeListener(this.router, 'willTransition', this, this._queueMoveFollower);
+    removeListener(this.router, 'didTransition', this, this._queueMoveFollower);
     cancel(this.nextRun);
     this.router = null;
 
