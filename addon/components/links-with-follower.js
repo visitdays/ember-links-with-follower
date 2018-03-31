@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import Component from 'ember-component';
+import getOwner from 'ember-owner/get';
 import layout from '../templates/components/links-with-follower';
 import { scheduleOnce, cancel, next, debounce } from 'ember-runloop';
 import { isEmpty } from 'ember-utils';
@@ -7,7 +8,6 @@ import { A as emberArray } from 'ember-array/utils';
 import { addListener, removeListener } from 'ember-metal/events';
 import computed from 'ember-computed';
 import jQuery from 'jquery';
-import getOwner from 'ember-getowner-polyfill';
 import Configuration from '../configuration';
 
 /**
@@ -24,7 +24,7 @@ import Configuration from '../configuration';
  * @class LinksWithFollower
  * @module Components
  */
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   tagName: 'nav',
   classNames: ['links-with-follower'],
@@ -188,7 +188,7 @@ export default Ember.Component.extend({
     if (this.isDestroying || this.isDestroyed) {
       return;
     }
-    
+
     let activeLink = this._activeLink();
 
     if (activeLink.length === 0) {
@@ -215,10 +215,6 @@ export default Ember.Component.extend({
 
     if (shouldHideFollower) {
       follower.hide();
-
-      Ember.warn('No active link found. Hiding follower', false, {
-        id: 'ember-debug.links-with-follower-no-active'
-      });
     } else {
       follower.show();
     }
